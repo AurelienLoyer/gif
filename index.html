@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GIF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+</head>
+
+<body>
+
+    <img id="soupergif" src="" alt="">
+
+    <script>
+        (async () => {
+            // Get GitHub repository file info
+            const response = await fetch('https://api.github.com/repos/t3kstiil3/gif/contents/data');
+            const data = await response.json();
+            
+            const random = Math.floor((Math.random() * data.length) + 1);
+            const gif = data[random];
+
+            const soupergif = document.getElementById("soupergif");
+            soupergif.src = gif.download_url;
+        })();
+    </script>
+</body>
+
+</html>
