@@ -15,9 +15,15 @@
     <div class="preview">
         <img id="soupergif" src="" alt="">
     </div>
+
     <input class="search" type="text">
+
     <ul id="list">
     </ul>
+
+    <div id="messageCopy">
+        link add to clipboard <i data-feather="smile"></i>
+    </div>
 
     <template>
         <li onmouseover="startPreview(this)" onclick="copyLink(this)">
@@ -63,6 +69,10 @@
 
         function copyLink(self) {
             copyToClipboard(self.children[1].value);
+            document.getElementById('messageCopy').classList.add('visible');
+            setTimeout(() => {
+                document.getElementById('messageCopy').classList.remove('visible');
+            }, 1500)
         }
 
         const copyToClipboard = str => {
