@@ -2,14 +2,54 @@ html, body {
     height: 100%;
 }
 
-body {
-    display: flex;
-    justify-content: center;
+body { 
     margin: 0;
     padding: 0;
-    align-items: center;
 }
 
-img {
 
+.preview {
+    width: 100%;
+    height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #3c324e;
+}
+
+.preview img {
+    max-height: 30vh;
+}
+
+.search {
+    height: 5vh;
+    width: 100%;
+}
+
+#list {
+    background: #3c324e;
+    height: 65vh;
+    width: 100%;
+    margin: 0;
+    color: white;
+    list-style: none;
+    padding: 10px 0px;
+}
+
+#list li {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+#list li:hover {
+    background: #0000000f;
+}
+
+textarea {
+    opacity: 0;
+    position: absolute;
 }

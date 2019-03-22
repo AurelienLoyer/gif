@@ -6,25 +6,74 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>GIF</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 </head>
 
 <body>
 
-    <img id="soupergif" src="" alt="">
+    <div class="preview">
+        <img id="soupergif" src="" alt="">
+    </div>
+    <input class="search" type="text">
+    <ul id="list">
+    </ul>
+
+    <template>
+        <li onmouseover="startPreview(this)" onclick="copyLink(this)">
+            <i data-feather="image"></i>
+            <input class="html_url" type="hidden" value="">
+            <span class="path"></span>
+            <i data-feather="copy"></i>
+        </li>
+    </template>
 
     <script>
+        feather.replace();
+
         (async () => {
             // Get GitHub repository file info
             const response = await fetch('https://api.github.com/repos/t3kstiil3/gif/contents/data');
             const data = await response.json();
-            
+
             const random = Math.floor((Math.random() * data.length));
             const gif = data[random];
 
             const soupergif = document.getElementById("soupergif");
             soupergif.src = gif.download_url;
+
+            data.forEach(gif => {
+                addListElement(gif);
+            });
         })();
+
+        function addListElement(gif) {
+            var baseTemplate = document.getElementsByTagName("template")[0];
+            var template = baseTemplate.content.cloneNode(true);
+            var items = template.children[0].children;
+            items[1].value = gif.download_url;
+            items[2].innerHTML = gif.path.replace('data/', '');
+            document.getElementById('list').appendChild(template);
+            feather.replace();
+        }
+
+        function startPreview(self) {
+            soupergif.src = self.children[1].value;
+        }
+
+        function copyLink(self) {
+            copyToClipboard(self.children[1].value);
+        }
+
+        const copyToClipboard = str => {
+            const el = document.createElement('textarea');
+            el.value = str;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+        };
+
     </script>
 </body>
 
